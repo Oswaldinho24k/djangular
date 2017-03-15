@@ -1,10 +1,10 @@
 (function(){
 		'use strict';
 
-		angular.module('scrumboard.demo', [])
-			.controller('ScrumboardController', ['$scope', '$http', ScrumboardController]);
+		angular.module('scrumboard.demo', ['ngRoute'])
+			.controller('ScrumboardController', ['$scope', '$http','$location',  ScrumboardController]);
 
-			function ScrumboardController($scope, $http){
+			function ScrumboardController($scope, $http, $location){
 				$scope.add = function(list, title){
 					var card = {
 						list: list.id, 
@@ -21,11 +21,13 @@
 							alert('No se pudo papaê');
 						});
 				};
+				$scope.logout = function(){
+					$http.get('/auth_api/logout')
+						.then(function(){
+							$location.url('/login');
+						});
+				}
 
-				$scope.login = function(){
-					$http.post('/auth_api/login/', 
-						{username: 'oswaldinho', password: 'oswaldinho' })
-				};
 
 				$scope.data = [];
 				$http.get('/scrumboard/lists/').then(function(response){
