@@ -8,6 +8,14 @@
 		<input type="text" ng-model="card.title" ng-model-options="modelOptions" ng-change="update()" />
 	</div>
 	<textarea ng-model="card.description" placeholder="Enter description"></textarea>
+
+	<div>
+		<label>List:</label>
+		<select 
+			ng-options="list as list.name for list in data"
+			ng-model="destList"></select>
+		<button ng-click="move()">Move</button>
+	</div>
 	<button ng-click="edit=false; update()">Close</button>
 	<button ng-click="delete()">Delete</button>
 </div>
